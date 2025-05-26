@@ -11,12 +11,16 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from './interfaces';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+
+    private readonly jwtService: JwtService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -32,7 +36,7 @@ export class AuthService {
 
       return {
         ...user,
-        // TODO: Add token
+        token: this.jwtService.sign({ id: user.id }),
       };
     } catch (error) {
       this.handleDBErrors(error);
@@ -52,24 +56,20 @@ export class AuthService {
 
     return {
       ...user,
-      // TODO: Add token
+      token: this.getJwtToken({ id: user.id }),
     };
   }
 
-  findAll() {
-    return `This action returns all auth`;
+  async checkAuthStatus(user: User) {
+    return {
+      ...user,
+      token: this.getJwtToken({ id: user.id }),
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateUserDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  private getJwtToken(payload: JwtPayload) {
+    const token = this.jwtService.sign(payload);
+    return token;
   }
 
   private handleDBErrors(error: any): never {
