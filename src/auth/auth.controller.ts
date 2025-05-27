@@ -23,8 +23,8 @@ export class AuthController {
     status: 200,
     description: 'User logged',
     example: {
+      id: 'string',
       email: 'string@example.com',
-      password: 'string',
       token: 'string',
     },
   })
