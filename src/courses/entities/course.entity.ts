@@ -6,36 +6,25 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users')
-export class User {
+@Entity('courses')
+export class Course {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column('text', {
-    unique: true,
+    nullable: false,
   })
-  email: string;
+  title: string;
 
   @Column('text', {
-    select: false,
+    default: 'No description',
   })
-  password: string;
+  description: string;
 
-  @Column('text', {
-    name: 'full_name',
+  @Column('decimal', {
+    default: 0,
   })
-  fullName: string;
-
-  @Column('bool', {
-    default: true,
-    name: 'is_active',
-  })
-  isActive: boolean;
-  @Column('text', {
-    array: true,
-    default: ['user'],
-  })
-  roles: string[];
+  price: number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
