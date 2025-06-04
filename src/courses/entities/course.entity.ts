@@ -1,7 +1,10 @@
+import { User } from 'src/auth/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -25,6 +28,20 @@ export class Course {
     default: 0,
   })
   price: number;
+
+  @Column('bool', {
+    default: false,
+  })
+  favorite: boolean;
+
+  @Column('bool', {
+    default: false,
+  })
+  completed: boolean;
+
+  @ManyToMany(() => User, (user) => user.courses)
+  @JoinTable()
+  users: User[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

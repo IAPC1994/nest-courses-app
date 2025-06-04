@@ -1,7 +1,9 @@
+import { Course } from 'src/courses/entities/course.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -31,11 +33,15 @@ export class User {
     name: 'is_active',
   })
   isActive: boolean;
+
   @Column('text', {
     array: true,
     default: ['user'],
   })
   roles: string[];
+
+  @ManyToMany(() => Course, (course) => course.users, { eager: true })
+  courses: Course[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
