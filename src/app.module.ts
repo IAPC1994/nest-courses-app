@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { SeedModule } from './seed/seed.module';
 import { CoursesModule } from './courses/courses.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { CoursesModule } from './courses/courses.module';
     AuthModule,
     SeedModule,
     CoursesModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],

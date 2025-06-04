@@ -1,4 +1,3 @@
-import { Course } from 'src/courses/entities/course.entity';
 import {
   Column,
   CreateDateColumn,
@@ -39,9 +38,6 @@ export class User {
     default: ['user'],
   })
   roles: string[];
-
-  @ManyToMany(() => Course, (course) => course.users, { eager: true })
-  courses: Course[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
