@@ -1,7 +1,9 @@
+import { UserCourse } from 'src/user-course/entities/user-course.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -25,6 +27,9 @@ export class Course {
     default: 0,
   })
   price: number;
+
+  @OneToMany(() => UserCourse, (userCourses) => userCourses.course)
+  userCourses: UserCourse[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

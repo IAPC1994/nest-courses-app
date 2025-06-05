@@ -1,8 +1,10 @@
+import { UserCourse } from 'src/user-course/entities/user-course.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -38,6 +40,9 @@ export class User {
     default: ['user'],
   })
   roles: string[];
+
+  @OneToMany(() => UserCourse, (userCourse) => userCourse.user)
+  userCourses: UserCourse[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
