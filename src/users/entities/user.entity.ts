@@ -1,9 +1,9 @@
-import { UserCourse } from 'src/user-course/entities/user-course.entity';
+import { UserCourse } from '../../user-course/entities/user-course.entity';
+
 import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,

@@ -1,4 +1,3 @@
-import { UserCourse } from 'src/user-course/entities/user-course.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { UserCourse } from '../../user-course/entities/user-course.entity';
 @Entity('courses')
 export class Course {
   @PrimaryGeneratedColumn('uuid')
