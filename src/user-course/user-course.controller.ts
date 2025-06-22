@@ -3,14 +3,11 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { UserCourseService } from './user-course.service';
 import { CreateUserCourseDto } from './dto/create-user-course.dto';
-import { UpdateUserCourseDto } from './dto/update-user-course.dto';
 
 @Controller('user-course')
 export class UserCourseController {
