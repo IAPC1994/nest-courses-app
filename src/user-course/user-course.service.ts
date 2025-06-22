@@ -80,18 +80,6 @@ export class UserCourseService {
     }
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} userCourse`;
-  }
-
-  update(id: string, updateUserCourseDto: UpdateUserCourseDto) {
-    return `This action updates a #${id} userCourse`;
-  }
-
-  remove(id: string) {
-    return `This action removes a #${id} userCourse`;
-  }
-
   private handleDBErrors(error: any): never {
     if (error.code === '23505') throw new BadRequestException(error.detail);
     console.error('DB Error', {

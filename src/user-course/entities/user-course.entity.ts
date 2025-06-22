@@ -15,10 +15,10 @@ export class UserCourse {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => User, (user) => user.userCourses)
+  @ManyToOne(() => User, (user) => user.userCourses, { eager: true })
   user: User;
 
-  @ManyToOne(() => Course, (course) => course.userCourses)
+  @ManyToOne(() => Course, (course) => course.userCourses, { eager: true })
   course: Course;
 
   @Column('bool', {

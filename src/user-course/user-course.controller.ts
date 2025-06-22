@@ -30,22 +30,4 @@ export class UserCourseController {
   findAllByCourseId(@Param('id', ParseUUIDPipe) id: string) {
     return this.userCourseService.findAllByCourseId(id);
   }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userCourseService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateUserCourseDto: UpdateUserCourseDto,
-  ) {
-    return this.userCourseService.update(id, updateUserCourseDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userCourseService.remove(id);
-  }
 }
