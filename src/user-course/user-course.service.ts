@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateUserCourseDto } from './dto/create-user-course.dto';
 import { UpdateUserCourseDto } from './dto/update-user-course.dto';
@@ -39,8 +40,44 @@ export class UserCourseService {
     }
   }
 
-  findAll() {
-    return `This action returns all userCourse`;
+  async findAllByUserId(id: string) {
+    try {
+      const user = this.userRepository.findOne({ where: { id } });
+      if (!user) throw new NotFoundException(`User with ID: ${id} not found`);
+
+      const userCourses = await this.userCourseRepository.find({
+        where: { user: { id } },
+      });
+      if (!userCourses)
+        throw new NotFoundException(
+          `User with ID: ${id} does not have courses registered`,
+        );
+
+      return userCourses;
+    } catch (error) {
+      this.handleDBErrors(error);
+    }
+  }
+
+  async findAllByCourseId(id: string) {
+    try {
+      const course = this.courseRepository.findOne({ where: { id } });
+      if (!course)
+        throw new NotFoundException(`Course with ID: ${id} not found`);
+
+      const courseUsers = await this.userCourseRepository.find({
+        where: { course: { id } },
+      });
+
+      if (!courseUsers)
+        throw new NotFoundException(
+          `Course with ID: ${id} does not have courses registered`,
+        );
+
+      return courseUsers;
+    } catch (error) {
+      this.handleDBErrors(error);
+    }
   }
 
   findOne(id: string) {

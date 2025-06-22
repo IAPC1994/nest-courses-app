@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { UserCourseService } from './user-course.service';
 import { CreateUserCourseDto } from './dto/create-user-course.dto';
@@ -20,9 +21,14 @@ export class UserCourseController {
     return this.userCourseService.create(createUserCourseDto);
   }
 
-  @Get()
-  findAll() {
-    return this.userCourseService.findAll();
+  @Get('user/:id')
+  findAllByUserId(@Param('id', ParseUUIDPipe) id: string) {
+    return this.userCourseService.findAllByUserId(id);
+  }
+
+  @Get('course/:id')
+  findAllByCourseId(@Param('id', ParseUUIDPipe) id: string) {
+    return this.userCourseService.findAllByCourseId(id);
   }
 
   @Get(':id')
